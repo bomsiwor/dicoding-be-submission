@@ -36,7 +36,7 @@ const addBooks = (request, handler) => {
   if (typeof name === "undefined") {
     const response = handler.response({
       status: "fail",
-      message: "Gagal menambahkan buku. Nama buku tidak boleh kosong!",
+      message: "Gagal menambahkan buku. Mohon isi nama buku",
     });
 
     response.code(400);
@@ -47,7 +47,7 @@ const addBooks = (request, handler) => {
     const response = handler.response({
       status: "fail",
       message:
-        "Gagal menambahkan buku. readPage harus lebih kecil dari pageCount!",
+        "Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount",
     });
 
     response.code(400);
@@ -61,7 +61,7 @@ const addBooks = (request, handler) => {
   if (isSuccess) {
     const response = handler.response({
       status: "success",
-      message: "Buku berhasil ditambah",
+      message: "Buku berhasil ditambahkan",
       data: {
         bookId: id,
       },
@@ -151,7 +151,7 @@ const getBookById = (request, handler) => {
 
   const response = handler.response({
     status: "fail",
-    message: "Data buku tidak ada!",
+    message: "Buku tidak ditemukan",
   });
 
   response.code(404);
@@ -177,7 +177,7 @@ const editBookById = (request, handler) => {
   if (typeof name === "undefined") {
     const response = handler.response({
       status: "fail",
-      message: "Gagal memperbarui buku. Nama buku tidak boleh kosong!",
+      message: "Gagal memperbarui buku. Mohon isi nama buku",
     });
 
     response.code(400);
@@ -188,7 +188,7 @@ const editBookById = (request, handler) => {
     const response = handler.response({
       status: "fail",
       message:
-        "Gagal memperbarui buku. readPage harus lebih kecil dari pageCount",
+        "Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount",
     });
 
     response.code(400);
@@ -220,7 +220,7 @@ const editBookById = (request, handler) => {
 
   const response = handler.response({
     status: "fail",
-    message: "Gagal memperbarui buku. Id tidak ada",
+    message: "Gagal memperbarui buku. Id tidak ditemukan",
   });
 
   response.code(404);
@@ -245,7 +245,7 @@ const deleteBookById = (request, handler) => {
 
   const response = handler.response({
     status: "fail",
-    message: "Buku gagal dihapus. Id tidak ada",
+    message: "Buku gagal dihapus. Id tidak ditemukan",
   });
 
   response.code(404);
