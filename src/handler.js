@@ -1,13 +1,7 @@
 const { nanoid } = require("nanoid");
 const books = require("./books");
 
-/**
- * Handler to add new book
- * @param {*} request
- * @param {*} h
- * @returns {Object} response
- */
-const addBookHandler = (request, h) => {
+const addBooks = (request, h) => {
   const {
     name,
     year,
@@ -86,13 +80,7 @@ const addBookHandler = (request, h) => {
   return response;
 };
 
-/**
- * Handler to get all books
- * @param {*} request
- * @param {*} h
- * @returns {Object} response
- */
-const getAllBooksHandler = (request, h) => {
+const getAllBooks = (request, h) => {
   const { name, reading, finished } = request.query;
 
   if (books.length === 0) {
@@ -144,13 +132,7 @@ const getAllBooksHandler = (request, h) => {
   return response;
 };
 
-/**
- * Handler to get book by id
- * @param {*} request
- * @param {*} h
- * @returns {Object} response
- */
-const getBookByIdHandler = (request, h) => {
+const getBookById = (request, h) => {
   const { bookId } = request.params;
 
   const book = books.filter((n) => n.id === bookId)[0];
@@ -176,13 +158,7 @@ const getBookByIdHandler = (request, h) => {
   return response;
 };
 
-/**
- * Handler to edit book by id
- * @param {*} request
- * @param {*} h
- * @returns {Object} response
- */
-const editBookByIdHandler = (request, h) => {
+const editBookById = (request, h) => {
   const { bookId } = request.params;
 
   const {
@@ -201,7 +177,7 @@ const editBookByIdHandler = (request, h) => {
   if (typeof name === "undefined") {
     const response = h.response({
       status: "fail",
-      message: "Gagal memperbarui buku. Mohon isi nama buku",
+      message: "Gagal memperbarui buku. Nama buku tidak boleh kosong!",
     });
 
     response.code(400);
@@ -212,7 +188,7 @@ const editBookByIdHandler = (request, h) => {
     const response = h.response({
       status: "fail",
       message:
-        "Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount",
+        "Gagal memperbarui buku. readPage harus lebih kecil dari pageCount",
     });
 
     response.code(400);
@@ -244,20 +220,14 @@ const editBookByIdHandler = (request, h) => {
 
   const response = h.response({
     status: "fail",
-    message: "Gagal memperbarui buku. Id tidak ditemukan",
+    message: "Gagal memperbarui buku. Id tidak ada",
   });
 
   response.code(404);
   return response;
 };
 
-/**
- * Handler to delete book by id
- * @param {*} request
- * @param {*} h
- * @returns {Object} response
- */
-const deleteBookByIdHandler = (request, h) => {
+const deleteBookById = (request, h) => {
   const { bookId } = request.params;
 
   const index = books.findIndex((book) => book.id === bookId);
@@ -275,7 +245,7 @@ const deleteBookByIdHandler = (request, h) => {
 
   const response = h.response({
     status: "fail",
-    message: "Buku gagal dihapus. Id tidak ditemukan",
+    message: "Buku gagal dihapus. Id tidak ada",
   });
 
   response.code(404);
@@ -283,9 +253,9 @@ const deleteBookByIdHandler = (request, h) => {
 };
 
 module.exports = {
-  addBookHandler,
-  getAllBooksHandler,
-  getBookByIdHandler,
-  editBookByIdHandler,
-  deleteBookByIdHandler,
+  addBooks,
+  getAllBooks,
+  getBookById,
+  editBookById,
+  deleteBookById,
 };
